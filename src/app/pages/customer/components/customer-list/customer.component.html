@@ -1,0 +1,43 @@
+<div class="card border-secondary m-3" >
+  <div class="card-header">Customers</div>
+  <div class="card-body">
+    <h4 class="card-title">
+      <div class="row">
+        <div class="col-8">
+          Liste of customers
+        </div>
+        <div class="col-4 text-end">
+          <button [routerLink]="'/app/customers/add'" class="btn btn-outline-secondary pull-right" type="button" >
+            <i class="bi bi-person-plus-fill"></i> Ajouter
+          </button>
+        </div>
+      </div>
+    </h4>
+    <div *ngIf="loading">Chargement...</div>
+    <div class="card-text" *ngIf="!loading && customers.length > 0">
+      <table class="table table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let customer of customers">
+              <th scope="row">{{customer.name}}</th>
+              <td>{{customer.email}}</td>
+              <td>
+                <button class="btn btn-outline-secondary" type="button">
+                  <i class="bi bi-pencil-square"></i> Edit
+                </button>
+                <button class="btn btn-outline-danger" type="button">
+                  <i class="bi bi-trash"></i> Delete
+                </button>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
