@@ -30,7 +30,7 @@ export class CustomerService {
     return this.http.put<Customer>(`${this.apiUrl}/${customer.id}`, customer);
   }
 
-  deleteCustomer(id: number): Observable<void> {
+  deleteCustomer(id: number | undefined): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

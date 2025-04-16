@@ -51,10 +51,12 @@ export class EditCustomerComponent implements OnInit {
   }
 
   onFormSubmit(customerData: Customer): void {
+    alert("OK")
     const updatedCustomer = {
       ...customerData,
       id: customerData.id
     }
+    console.log(updatedCustomer);
     this.customerService.updateCustomer(updatedCustomer).subscribe(
       {
         next: () => {

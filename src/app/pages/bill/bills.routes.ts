@@ -1,11 +1,11 @@
 import {Routes} from '@angular/router';
-import {CustomerComponent} from './customer-list/customer.component';
 import {ErreurComponent} from '../erreur/erreur.component';
+import {BillComponent} from './bill-list/bill.component';
 
-export const CUSTOMER_ROUTES: Routes = [
+export const BILLS_ROUTES: Routes = [
   {
     path: 'list',
-    component: CustomerComponent
+    component: BillComponent
   },
   {
     path: '',

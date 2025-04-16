@@ -8,15 +8,17 @@
         </div>
         <div class="col-4 text-end">
           <button [routerLink]="'/app/customers/list'" class="btn btn-outline-secondary pull-right" type="button" >
-            <i class="bi bi-arrow-bar-left"></i> Retourner à la liste
+            <i class="bi bi-arrow-left"></i> Retourner à la liste
           </button>
         </div>
       </div>
     </h4>
     <div class="card-text">
+      <!--(formCancel)="onCancel()"-->
       <customer-form
+        [customer]="null"
         (formSubmit)="onFormSubmit($event)"
-        (formCancel)="onCancel()"
+
       />
     </div>
   </div>

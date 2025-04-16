@@ -15,9 +15,10 @@ import {NgIf} from '@angular/common';
 export class CustomerFormComponent implements OnInit {
     @Input() customer: Customer | null = null;
     @Output() formSubmit: any = new EventEmitter<Customer>();
-    @Output() formCancel: any = new EventEmitter<void>();
+    //@Output() formCancel: any = new EventEmitter<void>();
 
     customerForm!: FormGroup;
+    initialFormValues: any;
 
     constructor(private fb: FormBuilder) {
     }
@@ -32,6 +33,7 @@ export class CustomerFormComponent implements OnInit {
     }
 
     initForm(): void {
+      this.initialFormValues = this.customer;
       this.customerForm = this.fb.group({
         name: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required,  Validators.email]]
@@ -45,11 +47,15 @@ export class CustomerFormComponent implements OnInit {
         if(this.customer && this.customer.id) {
           formData.id = this.customer.id;
         }
+        // transmission des data vers le composant parent
         this.formSubmit.emit(formData);
       }
     }
 
     onCancel(): void {
-      this.formCancel.emit();
+      this.customerForm.reset(this.initialFormValues);
+      this.customerForm.markAsPristine();
+      this.customerForm.markAsUntouched();
+      //this.formCancel.emit();
     }
 }
