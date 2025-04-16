@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {CustomerService} from '../../customer.service';
 import {Customer} from '../../customer.model';
@@ -21,7 +21,7 @@ import {NgForOf, NgIf} from '@angular/common';
 export class CustomerComponent implements OnInit {
   customers: Customer[] = [];
   loading = true;
-  constructor(private customerService: CustomerService) {
+  constructor(private customerService: CustomerService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -30,8 +30,8 @@ export class CustomerComponent implements OnInit {
 
   loadCustomer() {
     this.customerService.getCustomers().subscribe({
-      next: (data) => {
-        this.customers = data;
+      next: (data:any) => {
+        this.customers = data._embedded.customers;
         this.loading = false;
       },
       error: (error) => {
@@ -39,5 +39,22 @@ export class CustomerComponent implements OnInit {
         this.loading = false;
       }
     })
+  }
+
+  deleteCustomer(id: number | undefined) {
+    if(confirm("Veuillez confirmer la suppression du client")) {
+      this.customerService.deleteCustomer(id).subscribe({
+        next: () => {
+          this.loadCustomer();
+        },
+        error: (error) => {
+          console.error('Error deleting customer', error);
+        }
+      })
+    }
+  }
+
+  editCustomer(id: number | undefined) {
+    this.router.navigate(['/app/customers/edit', id]);
   }
 }
